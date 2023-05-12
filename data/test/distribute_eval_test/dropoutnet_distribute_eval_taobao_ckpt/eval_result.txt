@@ -1,0 +1,8 @@
+{
+  "auc": 0.49865204095840454,
+  "global_step": 1000,
+  "loss": 1.184654712677002,
+  "loss/loss/pairwise_loss": 0.7284946441650391,
+  "loss/loss/sigmoid_loss": 0.45616015791893005,
+  "loss/loss/total_loss": 1.184654712677002
+}

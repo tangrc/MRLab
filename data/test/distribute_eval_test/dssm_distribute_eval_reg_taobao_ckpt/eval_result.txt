@@ -1,0 +1,7 @@
+{
+  "global_step": 1000,
+  "loss": 0.30406996607780457,
+  "loss/loss/l2_loss": 0.30406996607780457,
+  "loss/loss/total_loss": 0.30406996607780457,
+  "mean_absolute_error": 0.33222803473472595
+}

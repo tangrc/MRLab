@@ -1,0 +1,10 @@
+{
+  "auc_ctcvr": 0.7955182194709778,
+  "auc_ctr": 0.5024606585502625,
+  "auc_cvr_masked": 0.782608687877655,
+  "global_step": 1000,
+  "loss": 1044.5479736328125,
+  "loss/loss/total_loss": 1044.5479736328125,
+  "loss/loss/weighted_cross_entropy_loss_ctr": 1027.9776611328125,
+  "loss/loss/weighted_cross_entropy_loss_cvr": 16.5703125
+}

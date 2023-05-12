@@ -1,0 +1,8 @@
+{
+  "accuracy": 0.9489700198173523,
+  "global_step": 1000,
+  "loss": 0.1844206601381302,
+  "loss/loss/cross_entropy_loss": 0.1844206601381302,
+  "loss/loss/total_loss": 0.1844206601381302,
+  "recall_at_topk": 0.99685
+}

@@ -1,0 +1,7 @@
+{
+  "auc": 0.49233317375183105,
+  "global_step": 1000,
+  "loss": 0.26424893736839294,
+  "loss/loss/cross_entropy_loss": 0.26424893736839294,
+  "loss/loss/total_loss": 0.26424893736839294
+}
