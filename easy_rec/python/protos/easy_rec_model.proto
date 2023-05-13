@@ -1,0 +1,105 @@
+syntax = "proto2";
+package protos;
+
+import "easy_rec/python/protos/fm.proto";
+import "easy_rec/python/protos/deepfm.proto";
+import "easy_rec/python/protos/wide_and_deep.proto";
+import "easy_rec/python/protos/multi_tower.proto";
+import "easy_rec/python/protos/dlrm.proto";
+import "easy_rec/python/protos/feature_config.proto";
+import "easy_rec/python/protos/dropoutnet.proto";
+import "easy_rec/python/protos/dssm.proto";
+import "easy_rec/python/protos/collaborative_metric_learning.proto";
+import "easy_rec/python/protos/mmoe.proto";
+import "easy_rec/python/protos/esmm.proto";
+import "easy_rec/python/protos/dbmtl.proto";
+import "easy_rec/python/protos/ple.proto";
+import "easy_rec/python/protos/simple_multi_task.proto";
+import "easy_rec/python/protos/dcn.proto";
+import "easy_rec/python/protos/cmbf.proto";
+import "easy_rec/python/protos/uniter.proto";
+import "easy_rec/python/protos/autoint.proto";
+import "easy_rec/python/protos/mind.proto";
+import "easy_rec/python/protos/loss.proto";
+import "easy_rec/python/protos/rocket_launching.proto";
+import "easy_rec/python/protos/variational_dropout.proto";
+import "easy_rec/python/protos/multi_tower_recall.proto";
+// for input performance test
+message DummyModel {
+
+}
+
+// for knowledge distillation
+message KD {
+  optional string loss_name = 10;
+  required string pred_name = 11;
+  // default to be logits
+  optional bool pred_is_logits = 12 [default=true];
+  // for CROSS_ENTROPY_LOSS, soft_label must be logits instead of probs
+  required string soft_label_name = 21;
+  // default to be logits
+  optional bool label_is_logits = 22 [default=true];
+  // currently only support CROSS_ENTROPY_LOSS and L2_LOSS
+  required LossType loss_type = 3;
+  optional float loss_weight = 4 [default=1.0];
+  // only for loss_type == CROSS_ENTROPY_LOSS
+  optional float temperature = 5 [default=1.0];
+
+}
+
+message EasyRecModel {
+    required string model_class = 1;
+
+    // actually input layers, each layer produce a group of feature
+    repeated FeatureGroupConfig feature_groups = 2;
+
+    // model parameters
+    oneof model {
+        DummyModel dummy = 101;
+        WideAndDeep wide_and_deep = 102;
+        DeepFM deepfm = 103;
+        MultiTower multi_tower = 104;
+        FM fm = 105;
+        DCN dcn = 106;
+        AutoInt autoint = 107;
+        DLRM dlrm = 108;
+        CMBF cmbf = 109;
+        Uniter uniter = 110;
+
+        MultiTowerRecall multi_tower_recall = 200;
+        DSSM dssm = 201;
+        MIND mind = 202;
+        DropoutNet dropoutnet = 203;
+        CoMetricLearningI2I metric_learning = 204;
+
+        MMoE mmoe = 301;
+        ESMM esmm = 302;
+        DBMTL dbmtl = 303;
+        SimpleMultiTask simple_multi_task = 304;
+        PLE ple = 305;
+
+        RocketLaunching rocket_launching = 401;
+    }
+    repeated SeqAttGroupConfig seq_att_groups = 7;
+    // implemented in easy_rec/python/model/easy_rec_estimator
+    // add regularization to all variables with "embedding_weights:"
+    // in name
+    optional float embedding_regularization = 8 [default = 0.0];
+
+    optional LossType loss_type = 9 [default = CLASSIFICATION];
+
+    optional uint32 num_class = 10 [default = 1];
+
+    optional EVParams ev_params = 11;
+
+    repeated KD kd = 12;
+
+    // filter variables matching any pattern in restore_filters
+    // common filters are Adam, Momentum, etc.
+    repeated string restore_filters = 13;
+
+    optional VariationalDropoutLayer variational_dropout = 14;
+
+    repeated Loss losses = 15;
+
+}
